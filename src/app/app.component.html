@@ -1,0 +1,22 @@
+<td-layout>
+  <td-layout-nav-list logo="mug:logo" toolbarTitle="Holding" navigationRoute="/" opened="true" mode="side">
+    <mat-nav-list td-sidenav-content [tdLayoutNavListClose]="!media.query('gt-sm')">
+      <router-outlet name="sidenav"></router-outlet>
+    </mat-nav-list>
+    <div td-toolbar-content>
+      <button mat-button tdLayoutNavListToggle>
+        Toggle
+      </button>
+    </div>
+    <router-outlet></router-outlet>
+    <td-layout-footer>
+      <div layout="row" layout-align="start center">
+        <span class="mat-caption">
+          Copyright &copy; {{ copyright|date:'y' }}
+          <a [routerLink]="['/about']">Medical University of Graz</a>.
+          All rights reserved
+        </span>
+      </div>
+    </td-layout-footer>
+  </td-layout-nav-list>
+</td-layout>

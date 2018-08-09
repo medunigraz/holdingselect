@@ -1,0 +1,124 @@
+@import "~@angular/material/theming";
+@import "~@covalent/core/theming/all-theme";
+
+@import "../node_modules/typeface-noto-sans/index.css";
+$typography: mat-typography-config(
+  $font-family: "Noto Sans, sans-serif",
+  $headline: mat-typography-level(32px, 48px, 700)
+);
+
+$md-mug-dark: (
+  50: #e0efe8,
+  100: #b3d7c5,
+  200: #80bd9e,
+  300: #4da377,
+  400: #268f59,
+  500: #007b3c,
+  600: #007336,
+  700: #00682e,
+  800: #005e27,
+  900: #004b1a,
+  A100: #7fff9d,
+  A200: #4cff76,
+  A400: #19ff4f,
+  A700: #00fe3c,
+  contrast: (
+    50: #000000,
+    100: #000000,
+    200: #000000,
+    300: #000000,
+    400: #ffffff,
+    500: #ffffff,
+    600: #ffffff,
+    700: #ffffff,
+    800: #ffffff,
+    900: #ffffff,
+    A100: #000000,
+    A200: #000000,
+    A400: #000000,
+    A700: #000000
+  )
+);
+
+$md-mug-light: (
+  50: #eaf5e6,
+  100: #cbe7c2,
+  200: #a8d799,
+  300: #85c670,
+  400: #6bba51,
+  500: #51ae32,
+  600: #4aa72d,
+  700: #409d26,
+  800: #37941f,
+  900: #278413,
+  A100: #c3ffb8,
+  A200: #97ff85,
+  A400: #6cff52,
+  A700: #56ff39,
+  contrast: (
+    50: #000000,
+    100: #000000,
+    200: #000000,
+    300: #000000,
+    400: #000000,
+    500: #000000,
+    600: #ffffff,
+    700: #ffffff,
+    800: #ffffff,
+    900: #ffffff,
+    A100: #000000,
+    A200: #000000,
+    A400: #000000,
+    A700: #000000
+  )
+);
+
+$md-mug-gray: (
+  50: #e9e9e9,
+  100: #c9c9c9,
+  200: #a5a5a5,
+  300: #808080,
+  400: #656565,
+  500: #4a4a4a,
+  600: #434343,
+  700: #3a3a3a,
+  800: #323232,
+  900: #222222,
+  A100: #9fc5e8,
+  A200: #6fa8dc,
+  A400: #3d85c6,
+  A700: #073763,
+  contrast: (
+    50: #000000,
+    100: #000000,
+    200: #000000,
+    300: #000000,
+    400: #ffffff,
+    500: #ffffff,
+    600: #ffffff,
+    700: #ffffff,
+    800: #ffffff,
+    900: #ffffff,
+    A100: #000000,
+    A200: #000000,
+    A400: #ffffff,
+    A700: #ffffff
+  )
+);
+
+@include mat-core(
+  $typography
+); // $typography is an **optional** argument for the mat-core
+
+$primary: mat-palette($md-mug-light, 800, 100, 900);
+$accent: mat-palette($md-mug-gray, 600, 100, 900);
+
+$warn: mat-palette($mat-red, 600, 100, 900);
+
+$theme: mat-light-theme($primary, $accent, $warn);
+
+@include angular-material-theme($theme);
+@include covalent-theme(
+  $theme,
+  $typography
+); // $typography is an **optional** argument for the covalent-theme
