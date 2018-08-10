@@ -23,6 +23,8 @@ import {
   tap
 } from "rxjs/operators";
 
+import { environment } from "../../environments/environment";
+
 export interface ListOptions {
   size?: number | string;
   offset?: number | string;
@@ -101,6 +103,10 @@ export abstract class APIClient<T extends Item> {
 
   constructor(protected http: HttpClient) {}
 
+  private url(): string {
+    return `${environment.apiURL}${this.path}`;
+  }
+
   list(filters: any): Observable<T[]> {
     const fetch = (url: string, options?: ListOptions) => {
       const args = {};
@@ -119,7 +125,7 @@ export abstract class APIClient<T extends Item> {
         }
         args["params"] = params;
       }
-      return this.http.get<PaginatedResponse<T>>(this.path, args).pipe(
+      return this.http.get<PaginatedResponse<T>>(url, args).pipe(
         tap(val => console.log("before map", val)),
         map(page => ({
           results: page.results,
@@ -129,7 +135,7 @@ export abstract class APIClient<T extends Item> {
       );
     };
 
-    return fetch(this.path, { filters: filters }).pipe(
+    return fetch(this.url(), { filters: filters }).pipe(
       tap(val => console.log("before expand", val)),
       expand(({ next }) => (next ? fetch(next) : empty())),
       tap(val => console.log("before concatMap", val)),
@@ -142,11 +148,11 @@ export abstract class APIClient<T extends Item> {
   }
 
   get(id: string | number) {
-    return this.http.get<T>(`${this.path}${id}/`);
+    return this.http.get<T>(`${this.url()}${id}/`);
   }
 
   create(item: T) {
-    const req = new HttpRequest<T>("POST", this.path, item, {
+    const req = new HttpRequest<T>("POST", this.url(), item, {
       reportProgress: true
     });
     const stream = this.http.request<T>(req).pipe(share());
@@ -181,7 +187,7 @@ export abstract class APIClient<T extends Item> {
   }
 
   update(item: T) {
-    const req = new HttpRequest<T>("PUT", `${this.path}${item.id}/`, item, {
+    const req = new HttpRequest<T>("PUT", `${this.url()}${item.id}/`, item, {
       reportProgress: true
     });
     const stream = this.http.request<T>(req).pipe(share());
@@ -216,6 +222,6 @@ export abstract class APIClient<T extends Item> {
   }
 
   delete(item: T) {
-    return this.http.delete(`${this.path}${item.id}/`);
+    return this.http.delete(`${this.url()}${item.id}/`);
   }
 }
