@@ -51,7 +51,6 @@ interface Room {
 }
 
 export interface CourseGroupTerm extends Item {
-  id: string;
   coursegroup: CourseGroup | null;
   person: any | null;
   start: Date;

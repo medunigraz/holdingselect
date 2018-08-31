@@ -13,7 +13,7 @@ export const environment = {
 
 export const auth: AuthConfig = {
   clientId: "sCwEzb0n5zUumRMkBItfHYa8VxP6Ml88GYFgFiMu",
-  redirectUri: "http://api.medunigraz.at:4201/",
+  redirectUri: "http://localhost:4200/",
   loginUrl: baseURL + "oauth2/authorize/",
   postLogoutRedirectUri: "",
   scope: "holding",

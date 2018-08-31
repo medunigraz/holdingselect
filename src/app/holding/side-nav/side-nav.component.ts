@@ -10,22 +10,22 @@ import { TdMediaService } from "@covalent/core/media";
 export class SideNavComponent implements OnInit {
   navmenu: Object[] = [
     {
-      icon: "looks_one",
+      icon: "event_available",
       route: "./",
       title: "Aktuell",
       description: "Aktuelle LVs in diesem Raum"
     },
     {
-      icon: "looks_two",
+      icon: "search",
       route: "./person",
-      title: "Eigene LVs",
-      description: "Auswahl aus den eigenen LVs"
+      title: "Suche",
+      description: "Suche nach LVs anderer Personen"
     },
     {
-      icon: "looks_3",
+      icon: "play_circle_filled",
       route: "./room",
-      title: "Andere Räume",
-      description: "Asuwhal aus aktuellen LVs von anderen Räumen"
+      title: "Laufend",
+      description: "laufende LVs"
     }
   ];
 

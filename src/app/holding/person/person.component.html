@@ -3,44 +3,45 @@
     Personensuche
   </mat-card-title>
   <mat-card-subtitle>
-    Subtitle
+    Suchen Sie nach LVs von anderen Personen.
   </mat-card-subtitle>
   <mat-divider></mat-divider>
   <mat-card-content>
-    <mat-form-field>
-        <input type="text" matInput placeholder="Name suchen ...">
-    </mat-form-field>
 
+
+    <table cellspacing="10">
+      <tr>
+        <td>
+          <mat-form-field class="Name_Input">
+            <input #namesearch type="text" matInput placeholder="Name suchen ..." (keyup)="suggest(namesearch.value)" [matAutocomplete]="auto">
+            <mat-autocomplete #auto="matAutocomplete" (optionSelected)='Set_Pers_Filter($event.option.value)' [displayWith]="displayFilter">
+              <mat-option *ngFor="let suggestion of suggestionobs$ | async" [value]="suggestion">
+                {{suggestion.presentation}}
+              </mat-option>
+            </mat-autocomplete>
+          </mat-form-field>
+        </td>
+        <td>
+          <mat-form-field>
+            <input matInput [matDatepicker]="Beginndatum" placeholder="von" (dateChange)="setBeginDate($event)">
+            <mat-datepicker-toggle matSuffix [for]="Beginndatum"></mat-datepicker-toggle>
+            <mat-datepicker #Beginndatum></mat-datepicker>
+          </mat-form-field>
+        </td>
+        <td>
+          <mat-form-field>
+            <input matInput [matDatepicker]="Endedatum" placeholder="bis" (dateChange)="setEndDate($event)">
+            <mat-datepicker-toggle matSuffix [for]="Endedatum"></mat-datepicker-toggle>
+            <mat-datepicker #Endedatum></mat-datepicker>
+          </mat-form-field>
+        </td>
+      </tr>
+    </table>
   </mat-card-content>
 </mat-card>
 <ng-container *ngIf="(coursegroupterms$ | async) as coursegroupterms">
   <ng-container *ngIf="coursegroupterms.length; else noItems">
-    <mat-card *ngFor="let term of coursegroupterms">
-      <mat-card-title>
-        {{ term.coursegroup.course.name }}
-        (
-        {{ term.coursegroup.name }}
-        )
-      </mat-card-title>
-      <mat-card-subtitle>
-        {{ term.room.title }} {{ term.room.name_full }}, {{ term.room.floor.name }} ({{ term.room.category.name }})
-      </mat-card-subtitle>
-      <mat-divider></mat-divider>
-      <mat-card-content>
-        {{ term.coursegroup.course.category }}
-        {{ term.coursegroup.course.semester }}
-        {{ term.coursegroup.course.year }}<br/>
-        Begin: {{ term.start }}<br/>
-        Ende: {{ term.end }}<br/>
-        Dauer: {{ term.start | timeDifference:term.end }}
-      </mat-card-content>
-      <mat-divider></mat-divider>
-      <mat-card-actions>
-        <a mat-button color="accent" class="text-upper" [routerLink]="['/holding']">
-          <span>Starten</span>
-        </a>
-      </mat-card-actions>
-    </mat-card>
+    <app-holding-detail [coursegroupterms]="coursegroupterms"></app-holding-detail>
   </ng-container>
   <ng-template #noItems>
     No Items!

@@ -33,8 +33,7 @@ import { AboutComponent } from "./about/about.component";
 import { PageNotFoundComponent } from "./page-not-found/page-not-found.component";
 
 import { AuthGuardService } from "./auth-guard.service";
-import { AuthInterceptor } from "./app.interceptors";
-
+import { BaseInterceptor, AuthInterceptor } from "./app.interceptors";
 import { appRoutes } from "./app.routing";
 
 @NgModule({
@@ -70,6 +69,11 @@ import { appRoutes } from "./app.routing";
   providers: [
     Title,
     AuthGuardService,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: BaseInterceptor,
+      multi: true
+    },
     {
       provide: HTTP_INTERCEPTORS,
       useClass: AuthInterceptor,

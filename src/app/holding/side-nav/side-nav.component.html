@@ -1,6 +1,6 @@
 <ng-template let-item let-last="last" ngFor [ngForOf]="navmenu">
   <a mat-list-item [routerLink]="item.route">
-    <mat-icon matListAvatar>{{item.icon}}</mat-icon>
+    <mat-icon color="primary" matListAvatar>{{item.icon}}</mat-icon>
     <h3 matLine> {{item.title}} </h3>
     <p matLine> {{item.description}} </p>
   </a>

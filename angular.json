@@ -27,7 +27,7 @@
               "node_modules/@covalent/core/common/platform.scss",
               "src/styles.scss"
             ],
-            "scripts": []
+            "scripts": ["src/app/getCurrentRoom.js"]
           },
           "configurations": {
             "production": {

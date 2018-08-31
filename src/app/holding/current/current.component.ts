@@ -1,4 +1,4 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, NgZone } from "@angular/core";
 
 import {
   TdLoadingService,
@@ -16,17 +16,29 @@ import { CourseGroupTermService } from "../course-group-term.service";
 })
 export class CurrentComponent implements OnInit {
   public coursegroupterms$;
+  public CurrentRoom;
 
   constructor(
     private loadingService: TdLoadingService,
+    private zone: NgZone,
     private holding: HoldingService,
     private course_group_term: CourseGroupTermService
   ) {
+    window["angularComponentRef"] = {
+
+      zone: this.zone,
+
+      componentFn: (value) => this.setCurrentRoom(value),
+
+      component: this
+
+    };
     this.loadingService.create({
       name: "courseGroupTermloadingFullscreen",
       mode: LoadingMode.Indeterminate,
       type: LoadingType.Linear,
-      color: "accent"
+      color: "accent",
+
     });
   }
 
@@ -43,4 +55,16 @@ export class CurrentComponent implements OnInit {
       this.loadingService.resolve("courseGroupTermloadingFullscreen");
     });
   }
+  setCurrentRoom(Room: number) {
+    console.log("RAUM: " + Room);
+    this.coursegroupterms$ = this.course_group_term.list({
+      start__gte: "2018-08-13T22:00:00.000Z",
+      end__lte: "2018-08-16T07:22:45.765Z"
+      , room: Room
+    });
+    this.coursegroupterms$.subscribe(() => {
+      this.loadingService.resolve("courseGroupTermloadingFullscreen");
+    });
+    this.CurrentRoom = Room;
+  };
 }

@@ -1,0 +1,28 @@
+<mat-card *ngFor="let term of coursegroupterms">
+  <mat-card-title>
+    {{ term.coursegroup.course.name }} ( {{ term.coursegroup.name }} )
+  </mat-card-title>
+  <mat-card-subtitle>
+    {{ term.room.title }} {{ term.room.name_full }}, {{ term.room.floor.name }} ({{ term.room.category.name }})
+  </mat-card-subtitle>
+  <mat-divider></mat-divider>
+  <mat-card-content>
+    {{ term.coursegroup.course.category }} {{ term.coursegroup.course.semester }} {{ term.coursegroup.course.year }}<br/> Begin: {{ term.start }}<br/> Ende: {{ term.end }}<br/> Dauer: {{ term.start | timeDifference:term.end }}
+  </mat-card-content>
+  <mat-divider></mat-divider>
+  <mat-card-actions>
+    <div *ngIf="term.id == '4223494-217329-50919'; then isRunning else isStopped"></div>
+    <ng-template #isStopped><a mat-raised-button color="primary" class="text-upper" [routerLink]="['/holding/room']" (click)="start_holding(term)">
+      <span>Starten</span>
+    </a>
+    </ng-template>
+    <ng-template #isRunning>
+      <a mat-raised-button color="warn" class="text-upper" [routerLink]="['/holding/room']" (click)="stop_holding(term)">
+        <span>Stop</span>
+      </a>
+    </ng-template>
+
+
+
+  </mat-card-actions>
+</mat-card>

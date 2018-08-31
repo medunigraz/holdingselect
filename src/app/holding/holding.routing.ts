@@ -37,4 +37,4 @@ const holdingRoutes: Routes = [
   imports: [RouterModule.forChild(holdingRoutes)],
   exports: [RouterModule]
 })
-export class HoldingRouting {}
+export class HoldingRouting { }

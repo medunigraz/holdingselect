@@ -30,7 +30,7 @@ export class AppComponent {
     this.iconRegistry.addSvgIconInNamespace(
       "mug",
       "logo",
-      this.domSanitizer.bypassSecurityTrustResourceUrl("assets/icons/logo.svg")
+      this.domSanitizer.bypassSecurityTrustResourceUrl("http://localhost:4200/assets/icons/logo.svg")
     );
     this.oauthService.configure(auth);
     this.oauthService.tokenValidationHandler = new NullValidationHandler();
